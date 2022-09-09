@@ -109,7 +109,8 @@ watch(activeIsland, () => {
                 <p>{{ clock }}</p>
 
                 <div
-                  class="absolute top-[22px] left-1/2 z-50 h-5 w-5 flex justify-center items-center rounded-full bg-[rgba(222,216,216,0.2)]"
+                  class="absolute top-[22px] left-1/2 h-5 w-5 flex justify-center items-center rounded-full bg-[rgba(222,216,216,0.2)]"
+                  style="z-index: 10"
                 >
                   <div class="h-3 w-3 rounded-full bg-[#394853]"></div>
                 </div>
@@ -311,7 +312,7 @@ watch(activeIsland, () => {
             <div class="flex flex-col mx-auto mt-16">
               <!-- <div>{{ formatDate() }}</div> -->
               <div>
-                <p class="text-gray-400 text-center">Friday, September 9</p>
+                <p class="text-gray-600 text-center">Friday, September 9</p>
               </div>
               <h1 class="text-[70px] text-white">{{ clock }}</h1>
             </div>
