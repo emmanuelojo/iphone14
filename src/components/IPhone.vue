@@ -4,6 +4,7 @@ import Ringtone from "../assets/iphone.mp3";
 
 onBeforeMount(() => {
   currentTime();
+  formatDate();
 });
 
 onMounted(() => {
@@ -58,7 +59,7 @@ setTimeout(() => {
   toggleNetworkIcons.value = false;
   //   activeIsland.value = "callDetails";
   activeIsland.value = "incomingCall";
-  //   activeIsland.value = "musicLarge";
+  // activeIsland.value = "musicLarge";
   ringtone.play();
 }, 5000);
 
@@ -67,6 +68,17 @@ setInterval(currentTime, 1000);
 const answerCall = () => {
   ringtone.pause();
   activeIsland.value = "onACall";
+};
+
+const formatDate = () => {
+  const today = new Date();
+  const newDate = new Intl.DateTimeFormat("en-ng", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(today));
+
+  return newDate;
 };
 
 watch(activeIsland, () => {
@@ -83,14 +95,18 @@ watch(activeIsland, () => {
     >
       <div class="w-full p-[2px] flex justify-center rounded-3xl bg-gray-500">
         <div class="w-full p-2 flex justify-center rounded-3xl bg-black">
-          <div class="w-full p-1 flex justify-center rounded-3xl bg-blue-500">
+          <div
+            class="w-full p-1 flex flex-col rounded-3xl bg-lockscreen bg-cover"
+          >
             <div class="w-full rounded-3xl">
-              <div class="mt-1 flex justify-around items-center">
+              <div class="mt-1 flex justify-around items-center text-white">
                 <p>{{ clock }}</p>
 
                 <div
-                  class="absolute top-[22px] left-1/2 z-50 h-5 w-5 rounded-full bg-[rgba(222,216,216,0.2)]"
-                ></div>
+                  class="absolute top-[22px] left-1/2 z-50 h-5 w-5 flex justify-center items-center rounded-full bg-[rgba(222,216,216,0.2)]"
+                >
+                  <div class="h-3 w-3 rounded-full bg-[#394853]"></div>
+                </div>
 
                 <div
                   v-if="activeIsland === 'initial'"
@@ -99,7 +115,7 @@ watch(activeIsland, () => {
 
                 <div
                   v-if="activeIsland === 'musicLarge'"
-                  class="absolute top-[18px] left-4 right-4 bg-black rounded-3xl"
+                  class="absolute top-[18px] left-4 right-4 bg-black rounded-[30px]"
                 >
                   <div class="px-3 pt-3 flex justify-between">
                     <div class="flex items-center gap-2">
@@ -162,7 +178,7 @@ watch(activeIsland, () => {
 
                 <div
                   v-if="activeIsland === 'incomingCall'"
-                  class="absolute top-[18px] left-4 right-4 p-2 flex justify-between items-center bg-black rounded-3xl"
+                  class="absolute top-[18px] left-4 right-4 p-2 flex justify-between items-center bg-black rounded-[30px]"
                 >
                   <div class="flex items-end gap-1">
                     <img
@@ -193,6 +209,7 @@ watch(activeIsland, () => {
                       <span class="material-symbols-outlined text-white">
                         call
                       </span>
+                      <!-- <i class="fa fa-phone text-white" aria-hidden="true"></i> -->
                     </div>
                   </div>
                 </div>
@@ -241,7 +258,7 @@ watch(activeIsland, () => {
                     </div>
                   </div>
 
-                  <div class="mt-2 mb-[10px] flex justify-between items-center">
+                  <div class="mt-2 flex justify-between items-center">
                     <div
                       class="h-10 w-10 rounded-full flex justify-center items-center bg-gray-400 text-white cursor-pointer"
                     >
@@ -283,6 +300,37 @@ watch(activeIsland, () => {
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div class="flex flex-col mx-auto mt-16">
+              <!-- <div>{{ formatDate() }}</div> -->
+              <div>
+                <p class="text-gray-400 text-center">Friday, September 9</p>
+              </div>
+              <h1 class="text-[70px] text-white">{{ clock }}</h1>
+            </div>
+
+            <div class="absolute bottom-3 left-0 right-0 flex flex-col gap-10">
+              <div class="px-10 flex justify-between items-center">
+                <div
+                  class="h-10 w-10 bg-n-black-10% rounded-full flex justify-center items-center"
+                >
+                  <span class="material-symbols-outlined text-white">
+                    flashlight_on
+                  </span>
+                </div>
+
+                <div
+                  class="h-10 w-10 bg-n-black-10% rounded-full flex justify-center items-center"
+                >
+                  <!-- <i class="fa fa-camera" aria-hidden="true"></i> -->
+                  <span class="material-symbols-outlined text-white">
+                    photo_camera
+                  </span>
+                </div>
+              </div>
+
+              <div class="h-[6px] w-[30%] mx-auto bg-white rounded-md"></div>
             </div>
           </div>
         </div>
