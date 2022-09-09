@@ -8,8 +8,6 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  //   const ringtone = new Audio(require('../assets/iphone.mp3'))
-  //   const ringtone = new Audio("../assets/iphone.mp3");
   setTimeout(() => {
     showMusic.value = true;
   }, 2000);
@@ -17,14 +15,15 @@ onMounted(() => {
 
 const audioRef = ref() as Ref<HTMLAudioElement>;
 
-// const ringtone = new Audio("../assets/iphone.mp3");
 const ringtone = new Audio(Ringtone);
 
 const clock = ref("9:41");
 
 const callDuration = ref("00:00");
 
-const min = ref(0);
+const hrs = ref(0);
+
+const mins = ref(0);
 
 const sec = ref(0);
 
@@ -52,6 +51,10 @@ const currentTime = () => {
   clock.value = time;
 };
 
+const zeroPadded = (num: number) => {
+  return num < 10 ? `0${num}` : num;
+};
+
 const zeroPadding = (num: number, digit: number) => {
   var zero = "";
   for (var i = 0; i < digit; i++) {
@@ -59,6 +62,23 @@ const zeroPadding = (num: number, digit: number) => {
   }
   return (zero + num).slice(-digit);
 };
+
+const counter = ref(1);
+
+const updateCallDuration = () => {
+  let hours = Math.floor(counter.value / 3600);
+  let minutes = Math.floor(counter.value / 60);
+  let seconds = counter.value % 60;
+
+  sec.value = seconds;
+  mins.value = minutes;
+
+  callDuration.value = `${zeroPadded(mins.value)}:${zeroPadded(sec.value)}`;
+
+  if (activeIsland.value === "onACall") counter.value++;
+};
+
+setInterval(updateCallDuration, 1000);
 
 setTimeout(() => {
   toggleNetworkIcons.value = false;
@@ -97,7 +117,7 @@ watch(activeIsland, () => {
 <template>
   <div class="relative my-10">
     <div
-      class="w-[80vw] sm:w-[350px] h-[700px] mx-auto relative flex justify-center rounded-3xl border border-black"
+      class="w-[80vw] sm:w-[350px] h-[80vh] sm:h-[700px] mx-auto relative flex justify-center rounded-3xl border border-black"
     >
       <div class="w-full p-[2px] flex justify-center rounded-3xl bg-gray-500">
         <div class="w-full p-2 flex justify-center rounded-3xl bg-black">
@@ -228,7 +248,7 @@ watch(activeIsland, () => {
                 >
                   <div class="flex items-center gap-1 text-green-500">
                     <i class="fa fa-phone text-[13px]" aria-hidden="true"></i>
-                    <p class="text-[13px]">0:08</p>
+                    <p class="text-[13px]">{{ callDuration }}</p>
                   </div>
 
                   <div>
