@@ -119,7 +119,7 @@ watch(activeIsland, () => {
 <template>
   <div class="relative my-10">
     <div
-      class="w-[80vw] sm:w-[350px] min-h-[85vh] max-h-screen sm:h-[700px] mx-auto relative flex justify-center rounded-3xl border border-black"
+      class="w-[80vw] sm:w-[350px] min-h-[95vh] max-h-[600px] sm:h-[700px] mx-auto relative flex justify-center rounded-3xl border border-black"
     >
       <div class="w-full p-[2px] flex justify-center rounded-3xl bg-gray-500">
         <div class="w-full p-2 flex justify-center rounded-3xl bg-black">
