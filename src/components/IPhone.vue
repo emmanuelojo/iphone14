@@ -4,7 +4,7 @@ import Ringtone from "../assets/iphone.mp3";
 
 onBeforeMount(() => {
   currentTime();
-  formatDate();
+  date.value = formatDate();
 });
 
 onMounted(() => {
@@ -16,6 +16,8 @@ onMounted(() => {
 const audioRef = ref() as Ref<HTMLAudioElement>;
 
 const ringtone = new Audio(Ringtone);
+
+const date = ref("");
 
 const clock = ref("9:41");
 
@@ -99,9 +101,9 @@ const answerCall = () => {
 const formatDate = () => {
   const today = new Date();
   const newDate = new Intl.DateTimeFormat("en-ng", {
-    day: "numeric",
+    weekday: "long",
     month: "long",
-    year: "numeric",
+    day: "numeric",
   }).format(new Date(today));
 
   return newDate;
@@ -139,69 +141,6 @@ watch(activeIsland, () => {
                   v-if="activeIsland === 'initial'"
                   class="h-7 w-[25%] p-1 flex justify-end items-center rounded-2xl bg-black"
                 ></div>
-
-                <!-- <div
-                  v-if="activeIsland === 'musicLarge'"
-                  class="absolute top-[18px] left-4 right-4 bg-black rounded-[30px]"
-                >
-                  <div class="px-3 pt-3 flex justify-between">
-                    <div class="flex items-center gap-2">
-                      <img
-                        src="https://i.scdn.co/image/ab67616d0000b2736c32fd4910e4aacea6143e7a"
-                        alt="Music Image"
-                        class="text-[9px] w-14 h-14 rounded-lg object-cover"
-                      />
-
-                      <div>
-                        <p class="text-xs text-white font-semibold">
-                          Spread the ops
-                        </p>
-                        <p class="text-xs text-gray-400 font-medium">Lecrae</p>
-                      </div>
-                    </div>
-
-                    <span class="material-symbols-outlined text-white">
-                      graphic_eq
-                    </span>
-                  </div>
-
-                  <div class="px-3 pt-2 pb-5 flex flex-col gap-[10px]">
-                    <div class="flex items-center gap-2">
-                      <p class="text-gray-400 text-[9px]">2:50</p>
-                      <div
-                        class="h-[6px] bg-gray-400 flex flex-grow rounded-lg"
-                      >
-                        <div
-                          class="h-[6px] bg-white rounded-l-full w-4/5"
-                        ></div>
-                      </div>
-                      <p class="text-gray-400 text-[9px]">-0:51</p>
-                    </div>
-
-                    <div class="relative flex justify-center text-white">
-                      <div class="flex justify-center items-center gap-5">
-                        <i
-                          class="text-[18px] fa fa-backward"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          class="text-[18px] fa fa-pause"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          class="text-[18px] fa fa-forward"
-                          aria-hidden="true"
-                        ></i>
-                      </div>
-
-                      <div class="absolute right-1">
-                        <span class="material-symbols-outlined text-[15px]">
-                          podcasts
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
 
                 <div
                   v-if="activeIsland === 'incomingCall'"
@@ -330,9 +269,8 @@ watch(activeIsland, () => {
             </div>
 
             <div class="flex flex-col mx-auto mt-16">
-              <!-- <div>{{ formatDate() }}</div> -->
               <div>
-                <p class="text-gray-600 text-center">Friday, September 9</p>
+                <p class="text-gray-600 text-center">{{ date }}</p>
               </div>
               <h1 class="text-[70px] text-white">{{ clock }}</h1>
             </div>
