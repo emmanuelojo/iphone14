@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IPhone from "./components/IPhone.vue";
+import IPhone from "./views/IPhone.vue";
 </script>
 
 <template>
